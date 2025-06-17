@@ -1,11 +1,11 @@
  using UnityEngine;
 
-public class DebugTest : MonoBehaviour
+public class Test : MonoBehaviour
 {
 
     void Start()
     {
-        Debug.Log("나는 업데이트");
+        Debug.Log("나는 스타트");
     }
 
     void Update()
