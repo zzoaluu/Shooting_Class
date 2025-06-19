@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
 {
@@ -9,16 +9,16 @@ public class PlayerFire : MonoBehaviour
     {
     }
     
-    void Update() // 1ÃÊ¿¡ 60¹ø ÀÛµ¿
+    void Update() // 1ì´ˆì— 60ë²ˆ ì‘ë™
     {
-        // ÀÌ ¾ÈÀÇ ³»¿ëÀ» 1ÃÊ¿¡ 60¹ø Ã¼Å©
-        // ¸¸¾à¿¡ OOO ÇÏ¸é 
-        if(Input.GetButtonDown("Fire1")) // ctrl ¶Ç´Â ¸¶¿ì½º ÁÂÃøÅ°
+        // ì´ ì•ˆì˜ ë‚´ìš©ì„ 1ì´ˆì— 60ë²ˆ ì²´í¬
+        // ë§Œì•½ì— OOO í•˜ë©´ 
+        if(Input.GetButtonDown("Fire1")) // ctrl ë˜ëŠ” ë§ˆìš°ìŠ¤ ì¢Œì¸¡í‚¤
         {
-            // ÀÌ·¸°Ô ÇØÁà. ºÎÅ¹ÇØ~
+            // ì´ë ‡ê²Œ í•´ì¤˜. ë¶€íƒí•´~
             GameObject bullet = Instantiate(bulletFactory);
             
-            //  ¶Ç ÇÏ³ªÀÇ ´«¿¡ ¾Èº¸ÀÌ´Â ¼Ó¼º(º¯¼ö) ¡ç (´ã°íÀÖ¾î¾ßµÉ ±×¸©) ¡ç °øÀå¿¡¼­ ÃÑ¾Ë »ı»ê
+            //  ë˜ í•˜ë‚˜ì˜ ëˆˆì— ì•ˆë³´ì´ëŠ” ì†ì„±(ë³€ìˆ˜) â† (ë‹´ê³ ìˆì–´ì•¼ë  ê·¸ë¦‡) â† ê³µì¥ì—ì„œ ì´ì•Œ ìƒì‚°
             bullet.transform.position = gun.transform.position;
         }
     }

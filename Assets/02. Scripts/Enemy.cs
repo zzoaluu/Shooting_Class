@@ -1,30 +1,30 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
-// Åº»ıÇÏ´Â ¿¡³Ê¹Ìµé Áß¿¡¼­ 30% Á¤µµ´Â ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î ¸¶Ä¡ À¯µµÅºÃ³·³ »ìÂ¦ ¹æÇâÀ» Æ²¾î¼­ °¡µµ·Ï ÇÑ´Ù.
+// íƒ„ìƒí•˜ëŠ” ì—ë„ˆë¯¸ë“¤ ì¤‘ì—ì„œ 30% ì •ë„ëŠ” í”Œë ˆì´ì–´ ë°©í–¥ìœ¼ë¡œ ë§ˆì¹˜ ìœ ë„íƒ„ì²˜ëŸ¼ ì‚´ì§ ë°©í–¥ì„ í‹€ì–´ì„œ ê°€ë„ë¡ í•œë‹¤.
 public class Enemy : MonoBehaviour
 {
     public float speed = 5;
     private Vector3 dir;
 
-    // Æø¹ßÈ¿°ú ÇÁ¸®Æé °¡Á®¿À±â 
+    // í­ë°œíš¨ê³¼ í”„ë¦¬í© ê°€ì ¸ì˜¤ê¸° 
     public GameObject explosionFactory;
 
 
-    void Start()  // ÅÂ¾î³¯¶§ ³» ¿î¸íÀÌ Á¤ÇØÁø´Ù. »çÁÖ! 
+    void Start()  // íƒœì–´ë‚ ë•Œ ë‚´ ìš´ëª…ì´ ì •í•´ì§„ë‹¤. ì‚¬ì£¼! 
     {
         int ranValue = Random.Range(0, 10);
         if(ranValue < 3) // 0, 1, 2
         {
-            // ±×¸©(player) ¡ç player¸¦ Ã£¾Æ¼­
+            // ê·¸ë¦‡(player) â† playerë¥¼ ì°¾ì•„ì„œ
             GameObject player = GameObject.Find("Player");
             
-            //    ±×¸©(player) ÀÇ À§Ä¡°ª     -  ³» ÀÚ½ÅÀÇ À§Ä¡°ª
+            //    ê·¸ë¦‡(player) ì˜ ìœ„ì¹˜ê°’     -  ë‚´ ìì‹ ì˜ ìœ„ì¹˜ê°’
             dir = player.transform.position - transform.position;
             
-            // 1ÀÇ Å©±â·Î ¸¸µé¾îÁØ´Ù.
+            // 1ì˜ í¬ê¸°ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.
             dir.Normalize();
 
-            //  ³ªÀÇ (¹Ì·¡) À§Ä¡°ª = ³ªÀÇ (ÇöÀç) À§Ä¡°ª + º¯È­ÇÏ´Â °ª
+            //  ë‚˜ì˜ (ë¯¸ë˜) ìœ„ì¹˜ê°’ = ë‚˜ì˜ (í˜„ì¬) ìœ„ì¹˜ê°’ + ë³€í™”í•˜ëŠ” ê°’
             // transform.position = transform.position + dir * speed * Time.deltaTime;
             transform.position += dir * speed * Time.deltaTime;
 
@@ -35,7 +35,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Update() // ´Ï ÆÈÀÚ´ë·Î »ì¾î
+    void Update() // ë‹ˆ íŒ”ìëŒ€ë¡œ ì‚´ì–´
     {
         // Vector3 dir = Vector3.down;
         transform.position = transform.position + dir * speed * Time.deltaTime; 
@@ -43,9 +43,9 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Æø¹ßÈ¿°ú ±×¸©   <-  Æø¹ßÈ¿°ú »ı»ê 
+        // í­ë°œíš¨ê³¼ ê·¸ë¦‡   <-  í­ë°œíš¨ê³¼ ìƒì‚° 
         GameObject explosion = Instantiate(explosionFactory);
-        // À§Ä¡
+        // ìœ„ì¹˜
         explosion.transform.position = transform.position;
 
         Destroy(collision.gameObject);

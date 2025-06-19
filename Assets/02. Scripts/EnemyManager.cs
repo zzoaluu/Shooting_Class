@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -9,14 +9,14 @@ public class EnemyManager : MonoBehaviour
     public float minTime = 1;
     public float maxTime = 5;
 
-    void Start() // Ãâ»ı 
+    void Start() // ì¶œìƒ 
     {        
         createTime = Random.Range(minTime, maxTime); 
     }
 
-    void Update() // 1ÃÊ¿¡ 60¹ø È£Ãâ
+    void Update() // 1ì´ˆì— 60ë²ˆ í˜¸ì¶œ
     {
-        // 100¹ÌÅÍ ÃÊ½Ã°è
+        // 100ë¯¸í„° ì´ˆì‹œê³„
         currentTime = currentTime + Time.deltaTime;
 
         if (currentTime > createTime)
