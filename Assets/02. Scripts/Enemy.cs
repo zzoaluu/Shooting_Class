@@ -6,6 +6,10 @@ public class Enemy : MonoBehaviour
     public float speed = 5;
     private Vector3 dir;
 
+    // 폭발효과 프리펩 가져오기 
+    public GameObject explosionFactory;
+
+
     void Start()  // 태어날때 내 운명이 정해진다. 사주! 
     {
         int ranValue = Random.Range(0, 10);
@@ -39,6 +43,11 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        // 폭발효과 그릇   <-  폭발효과 생산 
+        GameObject explosion = Instantiate(explosionFactory);
+        // 위치
+        explosion.transform.position = transform.position;
+
         Destroy(collision.gameObject);
         Destroy(gameObject);
     }
