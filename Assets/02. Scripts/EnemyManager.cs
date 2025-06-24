@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
@@ -9,22 +9,55 @@ public class EnemyManager : MonoBehaviour
     public float minTime = 1;
     public float maxTime = 5;
 
-    void Start() // ì¶œìƒ 
+    // ¿¡³Ê¹Ì ¿ÀºêÁ§Æ®Ç® ¼Ó¼º 
+    public int poolSize = 10;
+    private GameObject[] enemyObjectPool;
+
+    // ½ºÆù Æ÷ÀÎÆ® °ü¸® - ¹è¿­ 
+    public Transform[] spawnPoints;
+
+    void Start() // Ãâ»ı 
     {        
         createTime = Random.Range(minTime, maxTime); 
+
+        // ¿¡³Ê¹Ì ¿ÀºêÁ§Æ®Ç® »ı¼º
+        enemyObjectPool = new GameObject[poolSize];
+
+        for(int i = 0; i < poolSize; i++)
+        {
+            // ¿¡³Ê¹Ì °øÀå¿¡¼­ ¿¡³Ê¹Ì¸¦ ÇÑ²¨¹ø¿¡ ¸¸µé¾î¼­ ¹è¿­¿¡ ³Ö´Â´Ù
+            GameObject enemy = Instantiate(enemyFactory);
+            // ¿¡³Ê¹Ì ¸¸µç ´ÙÀ½¿¡ °İ³³°í¿¡ ³Ö±â 
+            enemyObjectPool[i] = enemy;
+
+            // ºñÈ°¼ºÈ­ ½ÃÅ°±â
+            enemyObjectPool[i].SetActive(false);
+        }
     }
 
-    void Update() // 1ì´ˆì— 60ë²ˆ í˜¸ì¶œ
+    void Update() // 1ÃÊ¿¡ 60¹ø È£Ãâ
     {
-        // 100ë¯¸í„° ì´ˆì‹œê³„
         currentTime = currentTime + Time.deltaTime;
-
         if (currentTime > createTime)
         {
-            GameObject enemy = Instantiate(enemyFactory);
-            enemy.transform.position = transform.position;
-            currentTime = 0;
+            for(int i = 0; i < poolSize; i++)
+            {
+                GameObject enemy = enemyObjectPool[i];
 
+                // ºñÈ°¼ºÈ­µÈ ¿¡³Ê¹Ì¸¦ Ã£¾Ò´Ù¸é
+                if(enemy.activeSelf == false)
+                {
+                    // ·£´ı ½ºÆùÆ÷ÀÎÆ®(Àû »ı¼ºÀ§Ä¡)
+                    int randomIndex = Random.Range(0, spawnPoints.Length);
+                    enemy.transform.position = spawnPoints[randomIndex].position;
+
+                    enemy.SetActive(true);
+
+                    // for¹® ³ª°¡±â
+                    break;
+                }
+            }
+            currentTime = 0;
             createTime = Random.Range(minTime, maxTime);
         }
     }

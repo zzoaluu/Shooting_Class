@@ -1,25 +1,63 @@
-Ôªøusing UnityEngine;
+using UnityEngine;
 
 public class PlayerFire : MonoBehaviour
 {
     public GameObject bulletFactory;
     public GameObject gun;
-    
+
+    // ø¿∫Í¡ß∆Æ «Æ : √—æÀ¿« ≈∫√¢ ∏∏µÈ±‚
+    public int poolSize = 10;
+    private GameObject[] bulletObjectPool;
+
     void Start()
     {
+        bulletObjectPool = new GameObject[poolSize];
+
+        // ∞‘¿”¿ª Ω√¿€«“∂ß « ø‰«— √—æÀ∞πºˆ∏¶ «—≤®π¯ø° ∏∏µÁ¥Ÿ. 
+        for(int i = 0; i < poolSize; i++)
+        {
+            // ∞¯¿Âø°º≠ √—æÀ¿ª ∏∏µÈæÓ πËø≠(≈∫√¢)ø° ≥÷¥¬¥Ÿ.
+            GameObject bullet = Instantiate(bulletFactory);
+            bulletObjectPool[i] = bullet;
+
+            //≈∫√¢ø° √—æÀ¿ª ≥÷∞Ì ∫Ò»∞º∫»≠ Ω√≈≤¥Ÿ.
+            bulletObjectPool[i].SetActive(false);
+        }
     }
     
-    void Update() // 1Ï¥àÏóê 60Î≤à ÏûëÎèô
+    void Update() // 1√ ø° 60π¯ ¿€µø
     {
-        // Ïù¥ ÏïàÏùò ÎÇ¥Ïö©ÏùÑ 1Ï¥àÏóê 60Î≤à Ï≤¥ÌÅ¨
-        // ÎßåÏïΩÏóê OOO ÌïòÎ©¥ 
-        if(Input.GetButtonDown("Fire1")) // ctrl ÎòêÎäî ÎßàÏö∞Ïä§ Ï¢åÏ∏°ÌÇ§
+        // ¿Ã æ»¿« ≥ªøÎ¿ª 1√ ø° 60π¯ √º≈©
+        // ∏∏æ‡ø° OOO «œ∏È 
+        if(Input.GetButtonDown("Fire1")) // ctrl ∂«¥¬ ∏∂øÏΩ∫ ¡¬√¯≈∞
         {
-            // Ïù¥Î†áÍ≤å Ìï¥Ï§ò. Î∂ÄÌÉÅÌï¥~
+            /*
+            // ¿Ã∑∏∞‘ «ÿ¡‡. ∫Œ≈π«ÿ~
             GameObject bullet = Instantiate(bulletFactory);
             
-            //  Îòê ÌïòÎÇòÏùò ÎààÏóê ÏïàÎ≥¥Ïù¥Îäî ÏÜçÏÑ±(Î≥ÄÏàò) ‚Üê (Îã¥Í≥†ÏûàÏñ¥ÏïºÎê† Í∑∏Î¶á) ‚Üê Í≥µÏû•ÏóêÏÑú Ï¥ùÏïå ÏÉùÏÇ∞
+            //  ∂« «œ≥™¿« ¥´ø° æ»∫∏¿Ã¥¬ º”º∫(∫Øºˆ) °Á (¥„∞Ì¿÷æÓæﬂµ… ±◊∏©) °Á ∞¯¿Âø°º≠ √—æÀ ª˝ªÍ
             bullet.transform.position = gun.transform.position;
+            */
+            Fire();
+        }
+    }
+
+    public void Fire()
+    {
+        for(int i = 0; i < poolSize; i++)
+        {
+            GameObject bullet = bulletObjectPool[i];
+
+            // ≈∫√¢ø°º≠ ∫Ò»∞º∫»≠µ» √—æÀ¿ª πﬂ∞ﬂ«œ∏È
+            if(bullet.activeSelf == false)
+            {
+                // √—æÀ¿ª »∞º∫»≠«œ∞Ì πﬂªÁ¿ßƒ°ø° ≥ı¥¬¥Ÿ
+                bullet.SetActive(true);
+                bullet.transform.position = gun.transform.position;
+
+                // forπÆ ¡ﬂ¡ˆ
+                break; 
+            }
         }
     }
 }

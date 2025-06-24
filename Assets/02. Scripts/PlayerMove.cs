@@ -1,48 +1,48 @@
-ï»¿// í´ëž˜ìŠ¤ë¥¼ êº¼ë‚´ì˜¤ëŠ” ì‚¬ì „(?) ê°™ì€ ì—­í•  
+// Å¬·¡½º¸¦ ²¨³»¿À´Â »çÀü(?) °°Àº ¿ªÇÒ 
 using UnityEngine;
  
-// í´ëž˜ìŠ¤ ì´ë¦„ ì •ì˜ 
-// Monobehaviour : ë¶€ëª¨ í´ëž˜ìŠ¤ ìƒì†
+// Å¬·¡½º ÀÌ¸§ Á¤ÀÇ 
+// Monobehaviour : ºÎ¸ð Å¬·¡½º »ó¼Ó
 public class PlayerMove : MonoBehaviour 
 {
-    // ì†ì„± : ëª…ì‚¬    
+    // ¼Ó¼º : ¸í»ç    
     public float speed = 5;
     // private float speed = 5;
 
     // ----------------------------------------------------------------------
 
-    // ë©”ì„œë“œ : ë™ì‚¬
-    // ë¼ì´í”„ ì‚¬ì´í´??? : ì¸ìƒì£¼ê¸°?? - ì‚¬ëžŒì´ íƒœì–´ë‚˜ì„œ(1ë²ˆë§Œ). ì‚´ë‹¤ê°€(ì§€ì†ì ìœ¼ë¡œ)
+    // ¸Þ¼­µå : µ¿»ç
+    // ¶óÀÌÇÁ »çÀÌÅ¬??? : ÀÎ»ýÁÖ±â?? - »ç¶÷ÀÌ ÅÂ¾î³ª¼­(1¹ø¸¸). »ì´Ù°¡(Áö¼ÓÀûÀ¸·Î)
 
-    // ë¬´ìŠ¨ ê¸°ëŠ¥ì´ì•¼?? 
-    void Start() // 1ë²ˆë§Œ í˜¸ì¶œ
+    // ¹«½¼ ±â´ÉÀÌ¾ß?? 
+    void Start() // 1¹ø¸¸ È£Ãâ
     {
 
     }
 
-    // ë¬´ìŠ¨ ê¸°ëŠ¥ì´ì•¼?? 
-    // ì§€ì†ì ìœ¼ë¡œ ê³„ì†ê³„ì† í˜¸ì¶œ 
-    // 1ì´ˆ 60ë²ˆ ìž‘ë™, 30ë²ˆ...
-    // - 1ì´ˆ 60ë²ˆ  
-    // ì €ì˜ PC ê²°ê³¼ê°’ : 1ì´ˆë§ˆë‹¤ ìš°ì¸¡ìœ¼ë¡œ 300ë§Œí¼ ì´ë™ 
+    // ¹«½¼ ±â´ÉÀÌ¾ß?? 
+    // Áö¼ÓÀûÀ¸·Î °è¼Ó°è¼Ó È£Ãâ 
+    // 1ÃÊ 60¹ø ÀÛµ¿, 30¹ø...
+    // - 1ÃÊ 60¹ø  
+    // ÀúÀÇ PC °á°ú°ª : 1ÃÊ¸¶´Ù ¿ìÃøÀ¸·Î 300¸¸Å­ ÀÌµ¿ 
     
     
-    // ì»´í“¨í„° ì„±ëŠ¥ì— ë”°ë¼ì„œ 1ì´ˆì— Oë²ˆ ë¶ˆë¦¬ìš°ëŠ”ì§€ ê²°ì •
+    // ÄÄÇ»ÅÍ ¼º´É¿¡ µû¶ó¼­ 1ÃÊ¿¡ O¹ø ºÒ¸®¿ì´ÂÁö °áÁ¤
     void Update() 
     {
-        // ì‚¬ìš©ìž ìž…ë ¥
-        float h = Input.GetAxis("Horizontal"); // â† â†’
-        float v = Input.GetAxis("Vertical"); // â†‘ â†“  
+        // »ç¿ëÀÚ ÀÔ·Â
+        float h = Input.GetAxis("Horizontal"); // ¡ç ¡æ
+        float v = Input.GetAxis("Vertical"); // ¡è ¡é  
                 
-        // ë°©í–¥
+        // ¹æÇâ
         Vector3 dir = Vector3.right * h + Vector3.up * v;
         // Vector3 dir = new Vector3(h, v, 0);
 
-        // ê²Œìž„ì˜¤ë¸Œì íŠ¸ë¥¼ Xì¶•(ì˜¤ë¥¸ìª½) ë°©í–¥ìœ¼ë¡œ ì´ë™ì‹œí‚¨ë‹¤.
-        // speedì— ì˜í•´ì„œ ë‚´ê±° ì–¼ë§Œí¼ ì›€ì§ì¼ì§€ê°€ ì •í•´ì§„ë‹¤. : ê²°ê³¼ê°’. 
+        // °ÔÀÓ¿ÀºêÁ§Æ®¸¦ XÃà(¿À¸¥ÂÊ) ¹æÇâÀ¸·Î ÀÌµ¿½ÃÅ²´Ù.
+        // speed¿¡ ÀÇÇØ¼­ ³»°Å ¾ó¸¸Å­ ¿òÁ÷ÀÏÁö°¡ Á¤ÇØÁø´Ù. : °á°ú°ª. 
         // transform.Translate(Vector3.right * speed * Time.deltaTime);
         
         transform.position = transform.position + dir * speed * Time.deltaTime;
-        //  ë‚´ (ë‹¤ìŒ)ìœ„ì¹˜  =   ë‚´ (í˜„ìž¬) ìœ„ì¹˜     ë°©í–¥    5   
+        //  ³» (´ÙÀ½)À§Ä¡  =   ³» (ÇöÀç) À§Ä¡     ¹æÇâ    5   
     }
 }

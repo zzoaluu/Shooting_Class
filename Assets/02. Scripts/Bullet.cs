@@ -1,4 +1,4 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class Bullet : MonoBehaviour
     
     void Update()
     {
-        // ë‚˜ì˜ (ë¯¸ë˜) ìœ„ì¹˜ =   ë‚˜ì˜ (í˜„ì¬) ìœ„ì¹˜ + XXX    
+        // ³ªÀÇ (¹Ì·¡) À§Ä¡ =   ³ªÀÇ (ÇöÀç) À§Ä¡ + XXX    
         transform.position = transform.position + Vector3.up * speed * Time.deltaTime;
     }
 }

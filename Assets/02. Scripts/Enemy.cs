@@ -1,30 +1,31 @@
-ï»¿using UnityEngine;
+using UnityEngine;
 
-// íƒ„ìƒí•˜ëŠ” ì—ë„ˆë¯¸ë“¤ ì¤‘ì—ì„œ 30% ì •ë„ëŠ” í”Œë ˆì´ì–´ ë°©í–¥ìœ¼ë¡œ ë§ˆì¹˜ ìœ ë„íƒ„ì²˜ëŸ¼ ì‚´ì§ ë°©í–¥ì„ í‹€ì–´ì„œ ê°€ë„ë¡ í•œë‹¤.
+// Åº»ıÇÏ´Â ¿¡³Ê¹Ìµé Áß¿¡¼­ 30% Á¤µµ´Â ÇÃ·¹ÀÌ¾î ¹æÇâÀ¸·Î ¸¶Ä¡ À¯µµÅºÃ³·³ »ìÂ¦ ¹æÇâÀ» Æ²¾î¼­ °¡µµ·Ï ÇÑ´Ù.
 public class Enemy : MonoBehaviour
 {
     public float speed = 5;
     private Vector3 dir;
 
-    // í­ë°œíš¨ê³¼ í”„ë¦¬í© ê°€ì ¸ì˜¤ê¸° 
+    // Æø¹ßÈ¿°ú ÇÁ¸®Æé °¡Á®¿À±â 
     public GameObject explosionFactory;
 
 
-    void Start()  // íƒœì–´ë‚ ë•Œ ë‚´ ìš´ëª…ì´ ì •í•´ì§„ë‹¤. ì‚¬ì£¼! 
+    // void Start()  // ÅÂ¾î³¯¶§ ³» ¿î¸íÀÌ Á¤ÇØÁø´Ù. »çÁÖ! 
+    void OnEnable() // ³» ÀÚ½ÅÀÌ È°¼ºÈ­µÉ¶§ - ½ÇÇàÇØ¶ó ¡ê OnDisable() : ³»°¡ ºñÈ°¼ºÈ­µÉ¶§ 
     {
         int ranValue = Random.Range(0, 10);
         if(ranValue < 3) // 0, 1, 2
         {
-            // ê·¸ë¦‡(player) â† playerë¥¼ ì°¾ì•„ì„œ
+            // ±×¸©(player) ¡ç player¸¦ Ã£¾Æ¼­
             GameObject player = GameObject.Find("Player");
             
-            //    ê·¸ë¦‡(player) ì˜ ìœ„ì¹˜ê°’     -  ë‚´ ìì‹ ì˜ ìœ„ì¹˜ê°’
+            //    ±×¸©(player) ÀÇ À§Ä¡°ª     -  ³» ÀÚ½ÅÀÇ À§Ä¡°ª
             dir = player.transform.position - transform.position;
             
-            // 1ì˜ í¬ê¸°ë¡œ ë§Œë“¤ì–´ì¤€ë‹¤.
+            // 1ÀÇ Å©±â·Î ¸¸µé¾îÁØ´Ù.
             dir.Normalize();
 
-            //  ë‚˜ì˜ (ë¯¸ë˜) ìœ„ì¹˜ê°’ = ë‚˜ì˜ (í˜„ì¬) ìœ„ì¹˜ê°’ + ë³€í™”í•˜ëŠ” ê°’
+            //  ³ªÀÇ (¹Ì·¡) À§Ä¡°ª = ³ªÀÇ (ÇöÀç) À§Ä¡°ª + º¯È­ÇÏ´Â °ª
             // transform.position = transform.position + dir * speed * Time.deltaTime;
             transform.position += dir * speed * Time.deltaTime;
 
@@ -35,7 +36,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    void Update() // ë‹ˆ íŒ”ìëŒ€ë¡œ ì‚´ì–´
+    void Update() // ´Ï ÆÈÀÚ´ë·Î »ì¾î
     {
         // Vector3 dir = Vector3.down;
         transform.position = transform.position + dir * speed * Time.deltaTime; 
@@ -43,12 +44,39 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        // í­ë°œíš¨ê³¼ ê·¸ë¦‡   <-  í­ë°œíš¨ê³¼ ìƒì‚° 
-        GameObject explosion = Instantiate(explosionFactory);
-        // ìœ„ì¹˜
-        explosion.transform.position = transform.position;
+        //ScoreManager.instance.Score = ScoreManager.instance.Score + 1;
+        // (¾²±â)ÇöÀçÁ¡¼ö ¾÷µ¥ÀÌÆ®    =   (ÀĞ±â)ÇöÀçÁ¡¼ö¸¦ ÀĞ¾î¿Í¼­   + 1    
+        //            6             =                5            + 1  
+        //ScoreManager.instance.Score += 1;
+        ScoreManager.instance.Score++;
 
-        Destroy(collision.gameObject);
-        Destroy(gameObject);
+        // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+        // Æø¹ßÈ¿°ú ±×¸©   <-  Æø¹ßÈ¿°ú »ı»ê 
+        GameObject explosion = Instantiate(explosionFactory);
+        // Æø¹ßÈ¿°ú À§Ä¡
+        explosion.transform.position = transform.position;
+        // ¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡¦¡
+
+
+        // ÃÑ¾ËÀÌ¸é ºñÈ°¼ºÈ­
+        //   Ãæµ¹ÇÑ   °ÔÀÓ¿ÀºêÁ§Æ®.ÀÌ¸§. Æ÷ÇÔÇÏ°í ÀÖ´Ï? "Bullet"
+        if (collision.gameObject.name.Contains("Bullet"))
+        {
+            // Áö±İÀÇ »óÈ² : ¿¡³Ê¹Ì ÀÚ½Å - ÃÑ¾Ë
+            // ÃÑ¾Ë - ºñÈ°¼ºÈ­
+            // SetActive(false) : ºñÈ°¼ºÈ­
+            // SetActive(true): È°¼ºÈ­ 
+            collision.gameObject.SetActive(false);
+        }
+        // ÇÃ·¹ÀÌ¾îÀÏ °æ¿ì 
+        else
+        {
+            // ÇÃ·¹ÀÌ¾î - ³Ê´Â ÆÄ±«ÇÒ²²
+            Destroy(collision.gameObject);
+        }
+            
+        // ¿¡³Ê¹Ì ³ª ÀÚ½Å ¡æ ÆÄ±«°¡ ¾Æ´Ï¶ó ºñÈ°¼ºÈ­! 
+        // Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }
